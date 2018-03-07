@@ -1,0 +1,54 @@
+﻿@model OKEtask.Models.Countries
+@{
+    ViewBag.Title = "Home Page";
+}
+<div class="jumbotron">
+
+    @using (Html.BeginForm("GetDetails", "Home"))
+    {
+        @Html.DropDownListFor(x => Model.SelectedCountry, new SelectList(Model.CountriesList, "Id", "Name", Model.SelectedCountry), "Please select country", new { @data_val = "false" })
+        <input type="submit" value="Get country details" class="btn btn-default" formaction="@Url.Action("CountryDetails", "Home")" />
+    }
+    <hr />
+    @Html.ValidationSummary()
+    <hr />
+    @using (Html.BeginForm("AddCountry", "Home"))
+    {
+        <h3>Add country</h3>
+
+        <div class="row">
+            <div class="col-md-4 col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.CountryToAdd.Id)
+                    @Html.TextBoxFor(m => m.CountryToAdd.Id, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.CountryToAdd.Name)
+                    @Html.TextBoxFor(m => m.CountryToAdd.Name, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.CountryToAdd.Capital)
+                    @Html.TextBoxFor(m => m.CountryToAdd.Capital, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.CountryToAdd.AreaCode)
+                    @Html.TextBoxFor(m => m.CountryToAdd.AreaCode, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-sm-12">
+                <input type="submit" value="Add country" class="btn btn-default" formaction="@Url.Action("AddCountry","Home")" />
+            </div>
+        </div>
+        @ViewBag.Message
+    }
+</div>
